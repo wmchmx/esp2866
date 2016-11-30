@@ -54,7 +54,8 @@ ln -s "$PWD""/esptool-py/esptool.py" "crosstool-NG/builds/xtensa-lx106-elf/bin/"
 
 
 
-ENV_FILE="/home/""$USER""/esp2866-env.sh"
-echo "#!/bin/bash" > "$ENV_FILE"
-echo PATH="$PATH_ADDITION"":\$PATH" >> "$ENV_FILE"
-sudo chmod a+x "$ENV_FILE"
+ENV_FILE="/home/""$USER""/esp2866-env"
+echo "#" > "$ENV_FILE"
+echo export PATH="$PATH_ADDITION"":\$PATH" >> "$ENV_FILE"
+echo export PS1="\"\\[\\e[32;1m\\][ESP2866-dev]\\[\\e[0m\\]:\\w\> \""
+

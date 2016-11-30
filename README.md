@@ -15,7 +15,10 @@ Pull this from the repository with
 ```
 Start the install with
 ```
-      esp2866\esp2866.sh
+      esp2866/esp2866.sh
 ```
-   
+After installation source the environment file in the home directory
+```
+      source /home/$USER/esp2866-env
+```
 
