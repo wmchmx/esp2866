@@ -12,7 +12,7 @@ cd crosstool-NG
 ./ct-ng xtensa-lx106-elf
 ./ct-ng build
 
-PATH="$PWD"/builds/xtensa-lx106-elf/bin:$PATH
+PATH="$PWD"/builds/xtensa-lx106-elf/bin:"$PATH"
 
 cd /opt/Espressif
 SDK_NAME_PREFIX=esp_iot_sdk
