@@ -11,10 +11,10 @@ cd crosstool-NG
 ./bootstrap && ./configure --prefix="$PWD" && make && make install
 ./ct-ng xtensa-lx106-elf
 ./ct-ng build
+PATH_ADDITION="$PWD""/builds/xtensa-lx106-elf/bin"
+PATH="$PATH_ADDITION"":""$PATH"
 
-PATH="$PWD"/builds/xtensa-lx106-elf/bin:"$PATH"
-
-cd /opt/Espressif
+cd "/opt/Espressif"
 SDK_NAME_PREFIX=esp_iot_sdk
 SDK_VERSION=1.2.0
 SDK_REVISION=15_07_03
@@ -24,3 +24,8 @@ wget -O "$SDK_ZIP_FILE" "https://github.com/esp8266/esp8266-wiki/raw/master/sdk/
 unzip "$SDK_ZIP_FILE"
 mv "$SDK_NAME_PREFIX""_v""$SDK_VERSION" ESP8266_SDK
 mv License ESP8266_SDK/
+
+ENV_FILE="/home/""$USER""/esp2866-env.sh"
+echo "#!/bin/bash" > "$ENV_FILE"
+echo PATH="$PATH_ADDITION"":\$PATH" >> "$ENV_FILE"
+sudo chmod a+x "$ENV_FILE"
