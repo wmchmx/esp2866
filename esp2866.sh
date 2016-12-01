@@ -20,15 +20,15 @@ function initSudo {
 initSudo
 
 echo "$SUDO_PWD" | sudo -S apt-get --yes install update
-echo "$SUDO_PWD" | sudo apt-get --yes install upgrade
+echo "$SUDO_PWD" | sudo -S apt-get --yes install upgrade
 echo "$SUDO_PWD" | sudo -S apt-get --yes install git autoconf build-essential gperf bison flex texinfo libtool libncurses5-dev wget gawk libc6-dev-amd64 python-serial libexpat-dev
 
 ESP2866_BIN_ROOT="/opt/Espressif"
 ESP2866_SDK_NAME="ESP8266_SDK"
 ESP2866_SDK_ROOT="$ESP2866_BIN_ROOT""/""$ESP2866_SDK_NAME"
 
-mkdir "$ESP2866_BIN_ROOT"
-chown "$USER" "$ESP2866_BIN_ROOT"/
+echo "$SUDO_PWD" | sudo -S mkdir -p "$ESP2866_BIN_ROOT"
+echo "$SUDO_PWD" | sudo -S chown "$USER" "$ESP2866_BIN_ROOT"/
 
 cd "$ESP2866_BIN_ROOT"
 git clone -b lx106 git://github.com/jcmvbkbc/crosstool-NG.git 
