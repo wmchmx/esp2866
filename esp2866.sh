@@ -1,14 +1,23 @@
 #!/bin/bash
-if [[ ! "$SUDO_PWD" ]]; then
-    echo "###############################################################################"
-    IFS= read -s -p "# Please enter the password for sudo:" SUDO_PWD
-    export SUDO_PWD=$( trimSpaces "$SUDO_PWD" )
-fi
 
-#just to logon sudo with this password
-echo "$SUDO_PWD" | sudo -S true > /dev/null
-echo ""
+# trim leading spaces
+function trimSpaces {
+    echo "$1" | sed 's/^[ \t\n\r]*//g' | sed 's/[ \t\n\r]*$//g'
+}
 
+function initSudo {
+    if [[ ! "$SUDO_PWD" ]]; then
+        echo "###############################################################################"
+        IFS= read -s -p "# Please enter the password for sudo:" SUDO_PWD
+        export SUDO_PWD=$( trimSpaces "$SUDO_PWD" )
+    fi
+
+    #just to logon sudo with this password
+    echo "$SUDO_PWD" | sudo -S true > /dev/null
+    echo ""
+}
+
+initSudo
 
 echo "$SUDO_PWD" | sudo -S apt-get --yes install update
 sudo apt-get --yes install upgrade
