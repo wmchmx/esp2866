@@ -2,6 +2,12 @@
 Some installation script for the esp2866 development, based on 
     *https://github.com/esp8266/esp8266-wiki/wiki/Toolchain*
 
+iot_sdk currently used is
+```
+    esp_iot_sdk_v1.2.0_15_07_03
+```
+Change the script if anothe verion is needed.
+
 Mainly to get a single script to install everything needed to develope esp2866 programs.
 Some build systems does not come with web browsers and GUI.
  
