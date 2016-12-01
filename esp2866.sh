@@ -65,10 +65,13 @@ rm -f include.tgz
 
 cd "$ESP2866_BIN_ROOT"
 wget -O esptool_0.0.2-1_i386.deb https://github.com/esp8266/esp8266-wiki/raw/master/deb/esptool_0.0.2-1_i386.deb
-echo "$SUDO_PWD" | sudo dpkg -i esptool_0.0.2-1_i386.deb
+echo "$SUDO_PWD" | sudo -S dpkg -i esptool_0.0.2-1_i386.deb
 rm -f esptool_0.0.2-1_i386.deb
 
 cd "$ESP2866_BIN_ROOT"
+if [[ -d "esptool-py" ]]; then
+    rm -rf "esptool-py"
+fi
 git clone "https://github.com/themadinventor/esptool" "esptool-py"
 ln -s "$PWD""/esptool-py/esptool.py" "crosstool-NG/builds/xtensa-lx106-elf/bin/"
 
