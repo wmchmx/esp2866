@@ -1,7 +1,18 @@
 #!/bin/bash
-sudo apt-get --yes install update
+if [[ ! "$SUDO_PWD" ]]; then
+    echo "###############################################################################"
+    IFS= read -s -p "# Please enter the password for sudo:" SUDO_PWD
+    export SUDO_PWD=$( trimSpaces "$SUDO_PWD" )
+fi
+
+#just to logon sudo with this password
+echo "$SUDO_PWD" | sudo -S true > /dev/null
+echo ""
+
+
+echo "$SUDO_PWD" | sudo -S apt-get --yes install update
 sudo apt-get --yes install upgrade
-sudo apt-get --yes install git autoconf build-essential gperf bison flex texinfo libtool libncurses5-dev wget gawk libc6-dev-amd64 python-serial libexpat-dev
+echo "$SUDO_PWD" | sudo -S apt-get --yes install git autoconf build-essential gperf bison flex texinfo libtool libncurses5-dev wget gawk libc6-dev-amd64 python-serial libexpat-dev
 
 ESP2866_BIN_ROOT="/opt/Espressif"
 ESP2866_SDK_NAME="ESP8266_SDK"
@@ -39,7 +50,7 @@ cd "$ESP2866_SDK_ROOT"
 wget -O lib/libc.a https://github.com/esp8266/esp8266-wiki/raw/master/libs/libc.a
 wget -O lib/libhal.a https://github.com/esp8266/esp8266-wiki/raw/master/libs/libhal.a
 wget -O include.tgz https://github.com/esp8266/esp8266-wiki/raw/master/include.tgz
-tar -xvzf include.tgz
+tar -xvzf --overwrite include.tgz
 rm -f include.tgz
 
 
@@ -49,7 +60,7 @@ dpkg -i esptool_0.0.2-1_i386.deb
 rm -f esptool_0.0.2-1_i386.deb
 
 cd "$ESP2866_BIN_ROOT"
-git clone "https://github.com/themadinventor/esptool esptool-py"
+git clone "https://github.com/themadinventor/esptool" "esptool-py"
 ln -s "$PWD""/esptool-py/esptool.py" "crosstool-NG/builds/xtensa-lx106-elf/bin/"
 
 
